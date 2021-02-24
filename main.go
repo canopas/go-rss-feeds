@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"log"
+	"github.com/gorilla/feeds"
 )
 
 func main() {
@@ -12,13 +12,13 @@ func main() {
 
 	/*
 	   convert it to RSS.
-	   github.com/gorilla/feeds also provides methods for converting to JSON and Atom
+	   github.com/gorilla/feeds also provides methods for converting to RSS, JSON and Atom
 	*/
 
-	rssFeeds, err := feedsData.ToRss()
-	if err != nil {
-		log.Fatal(err)
-	}
+	rssFeed := (&feeds.Rss{Feed: feedsData}).RssFeed()
 
-	fmt.Println(rssFeeds)
+	// Printing response to XML
+	xmlRssFeeds := rssFeed.FeedXml()
+
+	fmt.Println(xmlRssFeeds)
 }
